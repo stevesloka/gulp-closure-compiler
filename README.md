@@ -105,8 +105,9 @@ Use [Bower](http://bower.io/).
 
 ## Implementation notes
 
-Closure compiler supports pipes, but not correctly [(issue)](https://code.google.com/p/closure-compiler/issues/detail?id=1292).
-You don't need closurebuilder.py script, compiler knows how to resolve dependencies.
+- Closure compiler supports pipes, but not correctly [(issue)](https://code.google.com/p/closure-compiler/issues/detail?id=1292).
+- You don't need closurebuilder.py script, compiler knows how to resolve dependencies.
+- Java 1.7+ is required.
 
 ## License
 
