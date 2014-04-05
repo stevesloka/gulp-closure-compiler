@@ -1,5 +1,5 @@
 var Buffer = require('buffer').Buffer;
-var execFile = require('child_process').execFile;
+var child_process = require('child_process');
 var fs = require('fs');
 var gutil = require('gulp-util');
 var path = require('path');
@@ -8,9 +8,10 @@ var through = require('through');
 
 const PLUGIN_NAME = 'gulp-closure-library';
 
-module.exports = function(opt) {
+module.exports = function(opt, execFile_opt) {
   opt = opt || {};
   var files = [];
+  var execFile = execFile_opt || child_process.execFile;
 
   if (!opt.compilerPath)
     throw new gutil.PluginError(PLUGIN_NAME, 'Missing compilerPath option.');
