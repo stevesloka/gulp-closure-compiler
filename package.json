@@ -23,7 +23,10 @@
   "keywords": [
     "closure",
     "compiler",
-    "gulpplugin"
+    "compress",
+    "google",
+    "gulpplugin",
+    "minify"
   ],
   "dependencies": {
     "gulp-util": "^2.2.14",
