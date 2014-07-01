@@ -65,7 +65,8 @@ module.exports = function(opt, execFile_opt) {
     // Force --js_output_file to prevent [Error: stdout maxBuffer exceeded.]
     args.push('--js_output_file=' + outputFilePath);
 
-    var jar = execFile('java', args, function(error, stdout, stderr) {
+    // Bigger max buffer to fix "stderr maxBuffer exceeded" error. Default is 200*1024.
+    var jar = execFile('java', args, { maxBuffer: 1000*1024 }, function(error, stdout, stderr) {
       if (error || stderr) {
         this.emit('error', new gutil.PluginError(PLUGIN_NAME, error || stderr));
         return;
