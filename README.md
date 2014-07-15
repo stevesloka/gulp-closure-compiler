@@ -3,7 +3,7 @@
 
 > Gulp plugin for Google Closure Compiler
 
-*Issues with the output or Java should be reported on the Closure Compiler [issue tracker](https://code.google.com/p/closure-compiler/issues/list).*
+*Issues with the output or Java should be reported on the Closure Compiler [issue tracker](https://github.com/google/closure-compiler/issues).*
 
 ## Install
 
