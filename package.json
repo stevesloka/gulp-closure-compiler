@@ -29,14 +29,14 @@
     "minify"
   ],
   "dependencies": {
-    "gulp-util": "^2.2.14",
-    "through": "^2.3.4",
-    "temp-write": "^0.3.0"
+    "gulp-util": "^3.0.0",
+    "temp-write": "^1.0.0",
+    "through": "^2.3.4"
   },
   "devDependencies": {
-    "mocha": "*",
-    "gulp": "^3.5.6",
     "event-stream": "^3.1.0",
-    "vinyl": "^0.2.3"
+    "gulp": "^3.5.6",
+    "mocha": "*",
+    "vinyl": "^0.3.2"
   }
 }
