@@ -54,6 +54,8 @@ gulp.task('default', function() {
           'bower_components/este-library/externs/react.js'
         ],
         extra_annotation_name: 'jsx',
+        // Some compiler flags (like --use_types_for_optimization) don't have value. Use null.
+        // use_types_for_optimization: null,
         only_closure_dependencies: true,
         output_wrapper: '(function(){%output%})();',
         warning_level: 'VERBOSE'
