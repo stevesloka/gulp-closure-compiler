@@ -34,7 +34,7 @@ module.exports = function(opt, execFile_opt) {
       var values = flags[flag];
       if (!Array.isArray(values)) values = [values];
       values.forEach(function(value) {
-        args.push('--' + flag + '=' + value);
+        args.push('--' + flag + (value === null ? '' : '=' + value));
       });
     }
     return args;
