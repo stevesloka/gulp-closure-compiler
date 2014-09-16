@@ -91,6 +91,12 @@ Type: `Object`
 
 Closure compiler [flags](https://github.com/steida/gulp-closure-compiler/blob/master/flags.txt).
 
+##### maxBuffer
+
+Type: `Number` 
+
+If the buffer returned by closure compiler is more than 1000kb, you will get an error saying "maxBuffer exceeded". To prevent this, you can set the maxBuffer to the preffered size you want (in kb).
+
 ## How to download [Closure Compiler](https://developers.google.com/closure/compiler/)
 
 Use [Bower](http://bower.io/).
