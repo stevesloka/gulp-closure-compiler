@@ -63,6 +63,9 @@ module.exports = function(opt, execFile_opt) {
       '--flagfile=' + getFlagFilePath(files)
     ].concat(flagsToArgs(opt.compilerFlags));
 
+    var javaFlags = opt.javaFlags || [];
+    args = javaFlags.concat(args);
+
     // Force --js_output_file to prevent [Error: stdout maxBuffer exceeded.]
     args.push('--js_output_file=' + outputFilePath);
 
