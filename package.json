@@ -1,6 +1,6 @@
 {
   "name": "gulp-closure-compiler",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "Gulp plugin for Google Closure Compiler",
   "license": "MIT",
   "repository": {
