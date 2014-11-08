@@ -14,8 +14,6 @@ module.exports = function(opt, execFile_opt) {
   var files = [];
   var execFile = execFile_opt || child_process.execFile;
 
-  if (!opt.compilerPath)
-    throw new gutil.PluginError(PLUGIN_NAME, 'Missing compilerPath option.');
   if (!opt.fileName)
     throw new gutil.PluginError(PLUGIN_NAME, 'Missing fileName option.');
 
@@ -54,14 +52,23 @@ module.exports = function(opt, execFile_opt) {
     if (!files.length) return this.emit('end');
     var firstFile = files[0];
     var outputFilePath = tempWrite.sync('');
-    var args = [
-      '-jar',
-      // For faster compilation. It's supported everywhere from Java 1.7+.
-      '-XX:+TieredCompilation',
-      opt.compilerPath,
-      // To prevent maximum length of command line string exceeded error.
-      '--flagfile=' + getFlagFilePath(files)
-    ].concat(flagsToArgs(opt.compilerFlags));
+    var args;
+    if (opt.compilerPath) {
+      args = [
+        '-jar',
+        // For faster compilation. It's supported everywhere from Java 1.7+.
+        '-XX:+TieredCompilation',
+        opt.compilerPath,
+        // To prevent maximum length of command line string exceeded error.
+        '--flagfile=' + getFlagFilePath(files)
+      ];
+    } else {
+      args = [
+        // To prevent maximum length of command line string exceeded error.
+        '--flagfile=' + getFlagFilePath(files)
+      ];
+    }
+    args = args.concat(flagsToArgs(opt.compilerFlags));
 
     var javaFlags = opt.javaFlags || [];
     args = javaFlags.concat(args);
@@ -70,7 +77,8 @@ module.exports = function(opt, execFile_opt) {
     args.push('--js_output_file=' + outputFilePath);
 
     // Enable custom max buffer to fix "stderr maxBuffer exceeded" error. Default is 200*1024.
-    var jar = execFile('java', args, { maxBuffer: opt.maxBuffer*1024 }, function(error, stdout, stderr) {
+    var executable = opt.compilerPath ? 'java' : 'closure-compiler';
+    var jar = execFile(executable, args, { maxBuffer: opt.maxBuffer*1024 }, function(error, stdout, stderr) {
       if (error || stderr) {
         this.emit('error', new gutil.PluginError(PLUGIN_NAME, error || stderr));
         process.exit(1);
