@@ -38,7 +38,7 @@ module.exports = function(opt, execFile_opt) {
           glob.sync(value).forEach(function(resolved){
             args.push(buildFlag(flag, resolved))
           });
-        }else{
+        } else {
           args.push(buildFlag(flag, value));
         }
       });
