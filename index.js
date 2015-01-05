@@ -5,6 +5,7 @@ var gutil = require('gulp-util');
 var path = require('path');
 var tempWrite = require('temp-write');
 var through = require('through');
+var glob = require('glob');
 
 const PLUGIN_NAME = 'gulp-closure-library';
 
@@ -33,10 +34,20 @@ module.exports = function(opt, execFile_opt) {
       var values = flags[flag];
       if (!Array.isArray(values)) values = [values];
       values.forEach(function(value) {
-        args.push('--' + flag + (value === null ? '' : '=' + value));
+        if (flag === 'externs') {
+          glob.sync(value).forEach(function(resolved){
+            args.push(buildFlag(flag, resolved))
+          });
+        }else{
+          args.push(buildFlag(flag, value));
+        }
       });
     }
     return args;
+  };
+
+  var buildFlag = function(flag, value){
+    return '--' + flag + (value === null ? '' : '=' + value)
   };
 
   function bufferContents(file) {
