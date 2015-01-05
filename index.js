@@ -12,6 +12,7 @@ const PLUGIN_NAME = 'gulp-closure-library';
 module.exports = function(opt, execFile_opt) {
   opt = opt || {};
   opt.maxBuffer = opt.maxBuffer || 1000;
+  opt.continueWithWarnings = opt.continueWithWarnings || false;
   var files = [];
   var execFile = execFile_opt || child_process.execFile;
 
@@ -90,10 +91,14 @@ module.exports = function(opt, execFile_opt) {
     // Enable custom max buffer to fix "stderr maxBuffer exceeded" error. Default is 1000*1024.
     var executable = opt.compilerPath ? 'java' : 'closure-compiler';
     var jar = execFile(executable, args, { maxBuffer: opt.maxBuffer*1024 }, function(error, stdout, stderr) {
-      if (error || stderr) {
+      if (error || (stderr && !opt.continueWithWarnings)) {
         this.emit('error', new gutil.PluginError(PLUGIN_NAME, error || stderr));
         process.exit(1);
         return;
+      }
+
+      if (stderr) {
+        gutil.log(stderr);
       }
 
       var outputFileSrc = fs.readFile(outputFilePath, function(err, data) {
