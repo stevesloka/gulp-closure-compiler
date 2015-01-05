@@ -97,6 +97,12 @@ Type: `Number`
 
 If the buffer returned by closure compiler is more than 1000kb, you will get an error saying "maxBuffer exceeded". To prevent this, you can set the maxBuffer to the preffered size you want (in kb).
 
+##### continueWithWarnings
+
+Type: `boolean` 
+
+Ignore the warnings and continue with the compiler.  This adds flexiblity to some projects that can't work around certain warnings.  Default value is false.
+
 ## How to download [Closure Compiler](https://developers.google.com/closure/compiler/)
 
 Use [Bower](http://bower.io/).
