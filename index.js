@@ -114,14 +114,16 @@ module.exports = function(opt, execFile_opt) {
           return;
         }
 
-        var outputFile = new gutil.File({
-          base: firstFile.base,
-          contents: new Buffer(data),
-          cwd: firstFile.cwd,
-          path: path.join(firstFile.base, opt.fileName)
-        });
+        if(opt.fileName){
+          var outputFile = new gutil.File({
+            base: firstFile.base,
+            contents: new Buffer(data),
+            cwd: firstFile.cwd,
+            path: path.join(firstFile.base, opt.fileName)
+          });
 
-        this.emit('data', outputFile);
+         this.emit('data', outputFile);
+        }
         this.emit('end');
       }.bind(this));
 
