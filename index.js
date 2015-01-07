@@ -16,7 +16,7 @@ module.exports = function(opt, execFile_opt) {
   var files = [];
   var execFile = execFile_opt || child_process.execFile;
 
-  if (!opt.fileName)
+  if (!opt.fileName && !hasModules())
     throw new gutil.PluginError(PLUGIN_NAME, 'Missing fileName option.');
 
   var getFlagFilePath = function(files) {
@@ -59,6 +59,12 @@ module.exports = function(opt, execFile_opt) {
     }
     files.push(file);
   }
+
+  function hasModules(){
+    var properties = Object.getOwnPropertyNames(opt.compilerFlags || {});
+    return properties.indexOf("module") && properties.indexOf("module_output_path_prefix");
+  }
+
 
   function endStream() {
     if (!files.length) return this.emit('end');
