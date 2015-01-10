@@ -21,9 +21,7 @@ module.exports = function(opt, execFile_opt) {
 
   var getFlagFilePath = function(files) {
     var src = files.map(function(file) {
-      var relativePath = path.relative(file.cwd, file.path);
-      var tempPath = tempWrite.sync(file.contents.toString(), relativePath);
-      return '--js=' + tempPath;
+      return '--js=' + file.path;
     }).join('\n');
     return tempWrite.sync(src);
   };
