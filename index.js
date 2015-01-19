@@ -28,8 +28,8 @@ module.exports = function(opt, execFile_opt) {
       var relativePath = path.relative(file.cwd, file.path);
       var fullpath = path.join(tmpdir, dirName, relativePath);
       mkdirp.sync(path.dirname(fullpath));
-    	fs.writeFileSync(fullpath, file.contents.toString());
-      return '--js=' + fullpath;
+      fs.writeFileSync(fullpath, file.contents.toString());
+      return '--js="' + fullpath + '"';
     }).join('\n');
     return tempWrite.sync(src);
   };
@@ -84,12 +84,12 @@ module.exports = function(opt, execFile_opt) {
         '-XX:+TieredCompilation',
         opt.compilerPath,
         // To prevent maximum length of command line string exceeded error.
-        '--flagfile=' + getFlagFilePath(files)
+        '--flagfile="' + getFlagFilePath(files) + '"'
       ];
     } else {
       args = [
         // To prevent maximum length of command line string exceeded error.
-        '--flagfile=' + getFlagFilePath(files)
+        '--flagfile="' + getFlagFilePath(files) + '"'
       ];
     }
     args = args.concat(flagsToArgs(opt.compilerFlags));
@@ -98,7 +98,7 @@ module.exports = function(opt, execFile_opt) {
     args = javaFlags.concat(args);
 
     // Force --js_output_file to prevent [Error: stdout maxBuffer exceeded.]
-    args.push('--js_output_file=' + outputFilePath);
+    args.push('--js_output_file="' + outputFilePath + '"');
 
     // Enable custom max buffer to fix "stderr maxBuffer exceeded" error. Default is 1000*1024.
     var executable = opt.compilerPath ? 'java' : 'closure-compiler';
