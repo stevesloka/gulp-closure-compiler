@@ -1,11 +1,14 @@
 var Buffer = require('buffer').Buffer;
 var child_process = require('child_process');
-var fs = require('fs');
+var fs = require('graceful-fs');
+var glob = require('glob');
 var gutil = require('gulp-util');
+var mkdirp = require('mkdirp');
 var path = require('path');
 var tempWrite = require('temp-write');
 var through = require('through');
-var glob = require('glob');
+var tmpdir = require('os').tmpdir();
+var uuid = require('uuid');
 
 const PLUGIN_NAME = 'gulp-closure-library';
 
@@ -20,8 +23,13 @@ module.exports = function(opt, execFile_opt) {
     throw new gutil.PluginError(PLUGIN_NAME, 'Missing fileName option.');
 
   var getFlagFilePath = function(files) {
+    var dirName = uuid.v4();
     var src = files.map(function(file) {
-      return '--js=' + file.path;
+      var relativePath = path.relative(file.cwd, file.path);
+      var fullpath = path.join(tmpdir, dirName, relativePath);
+      mkdirp.sync(path.dirname(fullpath));
+    	fs.writeFileSync(fullpath, file.contents.toString());
+      return '--js=' + fullpath;
     }).join('\n');
     return tempWrite.sync(src);
   };

@@ -29,10 +29,13 @@
     "minify"
   ],
   "dependencies": {
+    "glob": "^4.3.2",
+    "graceful-fs": "^3.0.5",
     "gulp-util": "^3.0.0",
+    "mkdirp": "^0.5.0",
     "temp-write": "^1.0.0",
     "through": "^2.3.4",
-    "glob": "^4.3.2"
+    "uuid": "^2.0.1"
   },
   "devDependencies": {
     "event-stream": "^3.1.0",
