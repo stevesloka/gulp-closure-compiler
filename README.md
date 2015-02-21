@@ -22,7 +22,7 @@ var gulp = require('gulp');
 var closureCompiler = require('gulp-closure-compiler');
 
 gulp.task('default', function() {
-  gulp.src('src/*.js')
+  return gulp.src('src/*.js')
     .pipe(closureCompiler({
       compilerPath: 'bower_components/closure-compiler/compiler.jar',
       fileName: 'build.js'
@@ -40,7 +40,7 @@ var gulp = require('gulp');
 var closureCompiler = require('gulp-closure-compiler');
 
 gulp.task('default', function() {
-  gulp.src('src/*.js')
+  return gulp.src('src/*.js')
     .pipe(closureCompiler({
       compilerPath: 'bower_components/closure-compiler/compiler.jar',
       fileName: 'build.js',
