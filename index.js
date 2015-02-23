@@ -26,10 +26,7 @@ module.exports = function(opt, execFile_opt) {
     var dirName = uuid.v4();
     var src = files.map(function(file) {
       var relativePath = path.relative(file.cwd, file.path);
-      var fullpath = path.join(tmpdir, dirName, relativePath);
-      mkdirp.sync(path.dirname(fullpath));
-      fs.writeFileSync(fullpath, file.contents.toString());
-      return '--js="' + fullpath + '"';
+      return '--js="' + relativePath + '"';
     }).join('\n');
     return tempWrite.sync(src);
   };
